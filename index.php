@@ -20,7 +20,7 @@ $last = $info['last'];
 $title = $info['title'];
 $mail = $info['mail'];
 
-echo <<END
+echo <<<END
 
 
 <div style="width:630px;float:left;">
@@ -50,8 +50,15 @@ END;
 }
 //If it is not lets display the steps
 else {
+if (isset($_POST['p'])) 
+{
+$page = $_POST['p'];
+}
 
-$page = $_GET['p']
+else {
+
+	$page = 1;
+}
 
 ?>
 <!DOCTYPE html>
@@ -61,14 +68,15 @@ $page = $_GET['p']
 </head>
 <body>
 <?php
-switch $page {
+switch ($page) {
 
 case 1:
 ?>
 <h3>Hello, Let's create your signiture. I am going to run though some quick steps</h3><br>
 What's Your Name?<br>
-<form action="?p=2">
+<form method="post">
 <label for="first">First Name</label> <input type="text" name="first"/>&nbsp;<label for="Last">Last Name</label><input type="text" name="last"/><br>
+<input type='hidden' name='p' value='2'/>
 <input type="submit" value="Next Step" />
 
 </form>
@@ -80,8 +88,9 @@ $info['first'] = $_POST['first'];
 $info['last'] = $_POST['last'];
 $_SESSION['info'] = $info;
 ?>
-<form action="?p=3">
+<form method="post">
 <label for="title">Title</label> <input type="text" name="title"/>
+<input type='hidden' name='p' value='3'/>
 <input type="submit" value="Next Step" />
 </form>
 <?php
@@ -99,8 +108,9 @@ if (isset($_POST['title'])) {
 $info['title'] = $_POST['title'];
 $_SESSION['info'] = $info;
 ?>
-<form action="?p=4">
+<form method="post">
 <label for="mail">E-Mail Address</label> <input type="text" name="mail"/>
+<input type='hidden' name='p' value='4'/>
 <input type="submit" value="Next Step" />
 </form>
 <?php
